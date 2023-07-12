@@ -38,13 +38,17 @@ func main() {
 
 	// Load all to-dos from json file
 	if err := todos.Load(todoFile); err != nil {
-		fmt.Printf("Error while loading to-do file: %s", err)
+		fmt.Printf("Error while loading to-do file: %s\n", err)
 		os.Exit(1)
 	}
 
 	switch {
 	case addFlg:
 		task, err := cli.GetInput(os.Stdin, flag.Args()...)
+		if err != nil {
+			fmt.Printf("Error while getting to-do: %s\n", err)
+			os.Exit(1)
+		}
 
 		todos.Add(task)
 
