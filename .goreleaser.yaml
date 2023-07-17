@@ -1,0 +1,46 @@
+project_name: todo
+
+release:
+  prerelease: auto
+  draft: true # I'm taking a look at the release draft, editing and publishing
+  name_template: "todo v{{ .Version }}"
+
+builds:
+  - id: linux # Build for Linux
+    goos:
+      - linux
+    goarch:
+      - 386
+      - amd64
+      - arm
+      - arm64
+    binary: bin/todo
+    main: ./cmd/todo/main.go
+    env:
+      - CGO_ENABLED=0
+  - id: macos # Build for macOS
+    goos:
+      - darwin
+    goarch:
+      - arm64
+      - amd64
+    binary: bin/todo
+    main: ./cmd/todo/main.go
+    env:
+      - CGO_ENABLED=0
+
+archives:
+  - id: linux_archive
+    builds:
+      - linux
+    format: tar.gz
+    files:
+      - LICENSE
+      - README.md
+  - id: macos_archive
+    builds:
+      - macos
+    format: zip
+    files:
+      - LICENSE
+      - README.md
