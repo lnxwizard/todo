@@ -2,18 +2,33 @@ package todo
 
 import (
 	"fmt"
-	"strings"
+	"github.com/alexeyco/simpletable"
 	"time"
 )
 
 // List all to-dos
 func (t *TodoList) List() {
-	fmt.Printf("+%s+\n", strings.Repeat("-", 112))
-	fmt.Println("| # | Task                                          | Is Done? | CreatedAt              | CompletedAt            |")
-	fmt.Println("|---|-----------------------------------------------|----------|------------------------|------------------------|")
+	// create new table
+	table := simpletable.New()
 
+	// set table header
+	table.Header = &simpletable.Header{
+		Cells: []*simpletable.Cell{
+			{Align: simpletable.AlignCenter, Text: "#"},
+			{Align: simpletable.AlignCenter, Text: "Task"},
+			{Align: simpletable.AlignCenter, Text: "Completed?"},
+			{Align: simpletable.AlignCenter, Text: "CreatedAt"},
+			{Align: simpletable.AlignCenter, Text: "CompletedAt"},
+		},
+	}
+
+	// define table body cells
+	var cells [][]*simpletable.Cell
+
+	// add table body items
 	for index, item := range *t {
 		index++
+
 		task := item.Task
 		done := "Yes"
 		createdAt := item.CreatedAt.Format(time.RFC822)
@@ -24,9 +39,26 @@ func (t *TodoList) List() {
 			completedAt = item.CompletedAt.Format("###################")
 		}
 
-		fmt.Printf("| %d | %-45s | %-8s | %-22s | %-22s |\n", index, task, done, createdAt, completedAt)
+		cells = append(cells, *&[]*simpletable.Cell{
+			{Text: fmt.Sprintf("%d", index)},
+			{Text: task},
+			{Text: done},
+			{Text: createdAt},
+			{Text: completedAt},
+		})
 	}
-	fmt.Printf("+%s+\n", strings.Repeat("-", 112))
-	fmt.Printf("| You have %d pending to-do's%s|\n", t.CountPending(), strings.Repeat(" ", 85))
-	fmt.Printf("+%s+\n", strings.Repeat("-", 112))
+
+	// set table body
+	table.Body = &simpletable.Body{Cells: cells}
+
+	// set table footer
+	table.Footer = &simpletable.Footer{Cells: []*simpletable.Cell{
+		{Align: simpletable.AlignCenter, Span: 5, Text: fmt.Sprintf("You have %d pending to-do(s)", t.CountPending())},
+	}}
+
+	// set table style
+	table.SetStyle(simpletable.StyleUnicode)
+
+	// print table
+	table.Println()
 }

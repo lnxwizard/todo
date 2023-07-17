@@ -1,3 +1,3 @@
-# Build to-do locally
+# Build todo locally
 build:
 	@go build -o bin/todo ./cmd/todo
