@@ -1,22 +1,19 @@
 package main
 
 import (
-	"flag"
-	"fmt"
-	"github.com/lnxwizard/todo/internal/cli"
-	"github.com/lnxwizard/todo/pkg/todo"
+	rootCmd "github.com/lnxwizard/todo/pkg/cmd/root"
 	"os"
 )
 
-// change version manually
+/*// change version manually
 const (
 	todoVersion = "1.0.0"
 )
 
-const todoFile = "todos.json"
+const todoFile = "todos.json"*/
 
 func main() {
-	// set custom help message
+	/*// set custom help message
 	flag.Usage = cli.PrintUsage
 
 	// define flags
@@ -80,5 +77,9 @@ func main() {
 		todos.List()
 	default:
 		cli.PrintUsage()
+	}*/
+
+	if err := rootCmd.NewCmdRoot().Execute(); err != nil {
+		os.Exit(1)
 	}
 }

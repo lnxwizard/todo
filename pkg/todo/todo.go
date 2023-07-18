@@ -2,6 +2,10 @@ package todo
 
 import "time"
 
+var Todo = &TodoList{}
+
+const TodoFile = "todos.json"
+
 type Item struct {
 	Task        string    `json:"task"`
 	Done        bool      `json:"done"`

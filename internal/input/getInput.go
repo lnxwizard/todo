@@ -1,4 +1,4 @@
-package cli
+package input
 
 import (
 	"bufio"
@@ -14,6 +14,7 @@ func GetInput(r io.Reader, args ...string) (string, error) {
 
 	scanner := bufio.NewScanner(r)
 	scanner.Scan()
+
 	if err := scanner.Err(); err != nil {
 		return "", err
 	}
@@ -21,7 +22,7 @@ func GetInput(r io.Reader, args ...string) (string, error) {
 	text := scanner.Text()
 
 	if len(text) == 0 {
-		return "", errors.New("to-do is empty")
+		return "", errors.New("to-do cannot be empty")
 	}
 
 	return text, nil
