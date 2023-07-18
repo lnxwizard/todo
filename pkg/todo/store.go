@@ -7,7 +7,7 @@ import (
 
 // Store all to-dos in json file
 func (t *TodoList) Store(filename string) error {
-	data, err := json.Marshal(t)
+	data, err := json.MarshalIndent(t, "", "    ")
 	if err != nil {
 		return err
 	}
