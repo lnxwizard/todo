@@ -16,14 +16,14 @@ func NewCmdList() *cobra.Command {
 		Short:      "List all to-do's.",
 		Example:    "$ todo list",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			// get value of flag: completed
-			completedFlgVal, err := cmd.Flags().GetBool("completed")
+			// get value of flag: done
+			doneFlgVal, err := cmd.Flags().GetBool("done")
 			if err != nil {
 				return err
 			}
 
 			switch {
-			case completedFlgVal:
+			case doneFlgVal:
 				todo.Todo.ListCompleted()
 				return nil
 			}
@@ -36,9 +36,9 @@ func NewCmdList() *cobra.Command {
 
 	// define flags
 	var (
-		completedFlg bool
+		doneFlg bool
 	)
-	cmd.Flags().BoolVarP(&completedFlg, "completed", "c", false, "List completed to-do's.")
+	cmd.Flags().BoolVarP(&doneFlg, "done", "d", false, "List completed to-do's.")
 
 	return cmd
 }
