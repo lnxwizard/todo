@@ -23,7 +23,7 @@ func NewCmdRoot() *cobra.Command {
 		$ todo complete 3
 		$ todo list
 		$ todo delete 1`),
-		Version: "1.0.0",
+		Version: "1.1.0",
 	}
 
 	// add commands
