@@ -30,3 +30,9 @@ todo delete 5
 ## Available Flags
 - `-h`, `--help`: Print help message for todo.
 - `-v`, `--version`: Print version.
+
+### Available Flags for the `list` Command
+- `-d`, `--done`: List completed to-do's.
+
+# Documentation
+Documentation about available commands, sub-commands, flags and more is in the [`/docs`](/docs/) folder.
