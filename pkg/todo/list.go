@@ -17,6 +17,7 @@ func (t *TodoList) List() {
 			{Align: simpletable.AlignCenter, Text: "#"},
 			{Align: simpletable.AlignCenter, Text: "Task"},
 			{Align: simpletable.AlignCenter, Text: "Completed?"},
+			{Align: simpletable.AlignCenter, Text: "Important"},
 			{Align: simpletable.AlignCenter, Text: "CreatedAt"},
 			{Align: simpletable.AlignCenter, Text: "CompletedAt"},
 		},
@@ -31,6 +32,7 @@ func (t *TodoList) List() {
 
 		task := item.Task
 		done := "Yes"
+		important := "Yes"
 		createdAt := item.CreatedAt.Format(time.RFC822)
 		completedAt := item.CompletedAt.Format(time.RFC822)
 
@@ -39,10 +41,15 @@ func (t *TodoList) List() {
 			completedAt = item.CompletedAt.Format("###################")
 		}
 
+		if !item.Important {
+			important = "No"
+		}
+
 		cells = append(cells, *&[]*simpletable.Cell{
 			{Text: fmt.Sprintf("%d", index)},
 			{Text: task},
 			{Text: done},
+			{Text: important},
 			{Text: createdAt},
 			{Text: completedAt},
 		})
@@ -53,7 +60,7 @@ func (t *TodoList) List() {
 
 	// set table footer
 	table.Footer = &simpletable.Footer{Cells: []*simpletable.Cell{
-		{Align: simpletable.AlignCenter, Span: 5, Text: fmt.Sprintf("You have %d pending to-do(s)", t.CountPending())},
+		{Align: simpletable.AlignCenter, Span: 6, Text: fmt.Sprintf("You have %d pending to-do(s)", t.CountPending())},
 	}}
 
 	// set table style
@@ -73,6 +80,7 @@ func (t *TodoList) ListCompleted() {
 		Cells: []*simpletable.Cell{
 			{Align: simpletable.AlignCenter, Text: "#"},
 			{Align: simpletable.AlignCenter, Text: "Task"},
+			{Align: simpletable.AlignCenter, Text: "Important"},
 			{Align: simpletable.AlignCenter, Text: "CreatedAt"},
 			{Align: simpletable.AlignCenter, Text: "CompletedAt"},
 		},
@@ -87,12 +95,18 @@ func (t *TodoList) ListCompleted() {
 			index++
 
 			task := item.Task
+			important := "Yes"
 			createdAt := item.CreatedAt.Format(time.RFC822)
 			completedAt := item.CompletedAt.Format(time.RFC822)
+
+			if !item.Important {
+				important = "No"
+			}
 
 			cells = append(cells, *&[]*simpletable.Cell{
 				{Text: fmt.Sprintf("%d", index)},
 				{Text: task},
+				{Text: important},
 				{Text: createdAt},
 				{Text: completedAt},
 			})

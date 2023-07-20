@@ -25,6 +25,22 @@ func NewCmdAdd() *cobra.Command {
 				return err
 			}
 
+			importantFlgVal, err := cmd.Flags().GetBool("important")
+			if err != nil {
+				return err
+			}
+
+			switch {
+			case importantFlgVal:
+				todo.Todo.AddImportant(task)
+
+				if err := todo.Todo.Store(todo.TodoFile); err != nil {
+					return err
+				}
+
+				return nil
+			}
+
 			todo.Todo.Add(task)
 
 			if err := todo.Todo.Store(todo.TodoFile); err != nil {
@@ -34,6 +50,12 @@ func NewCmdAdd() *cobra.Command {
 			return nil
 		},
 	}
+
+	// define flags
+	var (
+		importantFlg bool
+	)
+	cmd.Flags().BoolVarP(&importantFlg, "important", "i", false, "Add a new important to-do.")
 
 	return cmd
 }
