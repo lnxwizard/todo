@@ -1,14 +1,12 @@
 version: '3'
 
 tasks:
-  # Run todo locally
   run:
+    desc: Run todo locally
     cmd: go run ./cmd/todo
-
-  # Build todo locally
   build:
+    desc: Build todo locally
     cmd: go build -o bin/todo ./cmd/todo
-
-  # Add missing and remove unused modules
   tidy:
+    desc: Add missing and remove unused modules
     cmd: go mod tidy
