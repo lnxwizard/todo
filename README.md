@@ -3,21 +3,24 @@ A simple to-do list app that you can use from the terminal.
 
 # About
 ## Usage
-```
+```shell
 todo [command]
 ```
 
 ## Examples
-```
+```shell
 todo add Take a walk
 ```
-```
+
+```shell
 todo list
 ```
-```
+
+```shell
 todo complete 2
 ```
-```
+
+```shell
 todo delete 5
 ```
 
@@ -35,4 +38,4 @@ todo delete 5
 - `-d`, `--done`: List completed to-do's.
 
 # Documentation
-Documentation about available commands, sub-commands, flags and more is in the [`/docs`](/docs/) folder.
+Documentation about available commands, sub-commands, flags and more is in the [`/docs`](/docs) folder.
