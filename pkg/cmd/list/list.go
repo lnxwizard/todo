@@ -16,8 +16,12 @@ func NewCmdList() *cobra.Command {
 		Short:      "List all to-do's.",
 		Example:    "$ todo list",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			// get value of flag: done
+			// get value of flags
 			doneFlgVal, err := cmd.Flags().GetBool("done")
+			if err != nil {
+				return err
+			}
+			importantFlgVal, err := cmd.Flags().GetBool("important")
 			if err != nil {
 				return err
 			}
@@ -25,6 +29,9 @@ func NewCmdList() *cobra.Command {
 			switch {
 			case doneFlgVal:
 				todo.Todo.ListCompleted()
+				return nil
+			case importantFlgVal:
+				todo.Todo.ListImportant()
 				return nil
 			}
 
@@ -36,9 +43,11 @@ func NewCmdList() *cobra.Command {
 
 	// define flags
 	var (
-		doneFlg bool
+		doneFlg      bool
+		importantFlg bool
 	)
 	cmd.Flags().BoolVarP(&doneFlg, "done", "d", false, "List completed to-do's.")
+	cmd.Flags().BoolVarP(&importantFlg, "important", "i", false, "List important to-do's.")
 
 	return cmd
 }
