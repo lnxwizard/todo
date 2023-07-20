@@ -1,6 +1,8 @@
 package todo
 
-import "errors"
+import (
+	"errors"
+)
 
 // Delete a to-do by index
 func (t *TodoList) Delete(index int) error {
@@ -13,4 +15,11 @@ func (t *TodoList) Delete(index int) error {
 	*t = append(tdls[:index-1], tdls[index:]...)
 
 	return nil
+}
+
+// Delete all to-do's
+func (t *TodoList) DeleteAll() {
+	tdls := *t
+
+	*t = tdls[:0]
 }

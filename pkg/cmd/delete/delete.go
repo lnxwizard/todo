@@ -17,6 +17,22 @@ func NewCmdDelete() *cobra.Command {
 		Short:      "Delete a to-do by index.",
 		Example:    "$ todo delete 5",
 		RunE: func(cmd *cobra.Command, args []string) error {
+			allFlgVal, err := cmd.Flags().GetBool("all")
+			if err != nil {
+				return err
+			}
+
+			switch {
+			case allFlgVal:
+				todo.Todo.DeleteAll()
+
+				if err := todo.Todo.Store(todo.TodoFile); err != nil {
+					return err
+				}
+
+				return nil
+			}
+
 			index, err := input.GetIntegerInput()
 			if err != nil {
 				return err
@@ -33,6 +49,12 @@ func NewCmdDelete() *cobra.Command {
 			return nil
 		},
 	}
+
+	// define flags
+	var (
+		allFlg bool
+	)
+	cmd.Flags().BoolVarP(&allFlg, "all", "a", false, "Delete all to-do's.")
 
 	return cmd
 }
