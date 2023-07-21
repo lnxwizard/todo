@@ -1,6 +1,7 @@
 package delete
 
 import (
+	"errors"
 	"github.com/lnxwizard/todo/internal/input"
 	"github.com/lnxwizard/todo/pkg/todo"
 	"github.com/spf13/cobra"
@@ -33,7 +34,11 @@ func NewCmdDelete() *cobra.Command {
 				return nil
 			}
 
-			index, err := input.GetIntegerInput()
+			if len(args) < 1 {
+				return errors.New("index cannot be empty")
+			}
+
+			index, err := input.GetIntegerInput(2)
 			if err != nil {
 				return err
 			}

@@ -7,6 +7,7 @@ import (
 	completeCmd "github.com/lnxwizard/todo/pkg/cmd/complete"
 	deleteCmd "github.com/lnxwizard/todo/pkg/cmd/delete"
 	listCmd "github.com/lnxwizard/todo/pkg/cmd/list"
+	markCmd "github.com/lnxwizard/todo/pkg/cmd/mark"
 	"github.com/lnxwizard/todo/pkg/todo"
 	"github.com/spf13/cobra"
 	"os"
@@ -26,16 +27,18 @@ func NewCmdRoot() *cobra.Command {
 		Version: "1.1.0",
 	}
 
-	// add commands
+	// add commands (a-z)
 	cmd.AddCommand(addCmd.NewCmdAdd())
-	cmd.AddCommand(deleteCmd.NewCmdDelete())
 	cmd.AddCommand(completeCmd.NewCmdComplete())
+	cmd.AddCommand(deleteCmd.NewCmdDelete())
 	cmd.AddCommand(listCmd.NewCmdList())
+	cmd.AddCommand(markCmd.NewCmdMark())
 
 	return cmd
 }
 
 func init() {
+	// load to-do file
 	if err := todo.Todo.Load(todo.TodoFile); err != nil {
 		fmt.Printf("Error while loading %s file: %s \n", todo.TodoFile, err)
 		os.Exit(1)

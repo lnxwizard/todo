@@ -34,11 +34,11 @@ func NewCmdComplete() *cobra.Command {
 				return nil
 			}
 
-			if len(args) < 3 {
+			if len(args) < 1 {
 				return errors.New("index cannot be empty")
 			}
 
-			index, err := input.GetIntegerInput()
+			index, err := input.GetIntegerInput(2)
 			if err != nil {
 				return err
 			}
