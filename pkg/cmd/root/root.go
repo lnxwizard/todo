@@ -8,6 +8,7 @@ import (
 	deleteCmd "github.com/lnxwizard/todo/pkg/cmd/delete"
 	listCmd "github.com/lnxwizard/todo/pkg/cmd/list"
 	markCmd "github.com/lnxwizard/todo/pkg/cmd/mark"
+	unmarkCmd "github.com/lnxwizard/todo/pkg/cmd/unmark"
 	"github.com/lnxwizard/todo/pkg/todo"
 	"github.com/spf13/cobra"
 	"os"
@@ -33,6 +34,7 @@ func NewCmdRoot() *cobra.Command {
 	cmd.AddCommand(deleteCmd.NewCmdDelete())
 	cmd.AddCommand(listCmd.NewCmdList())
 	cmd.AddCommand(markCmd.NewCmdMark())
+	cmd.AddCommand(unmarkCmd.NewCmdUnmark())
 
 	return cmd
 }
